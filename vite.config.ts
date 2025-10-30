@@ -15,5 +15,11 @@ export default defineConfig({
     port: 7761,
     open: false,
     cors: true,
+    proxy: {
+      '/api': {
+        target: '',
+        changeOrigin: true,
+      },
+    }
   }
 })
