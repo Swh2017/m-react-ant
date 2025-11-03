@@ -1,7 +1,7 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import {logout} from "@/utils/auth.ts";
 
-export default function Home() {
+export default function Layout() {
   const navigate = useNavigate();
 
   const handleLogout = () => {

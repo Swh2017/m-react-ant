@@ -1,21 +1,28 @@
 import Mock from 'mockjs';
 
-// 模拟登录接口
-Mock.mock('/user/login', 'post', (options: any) => {
-    const body = JSON.parse(options.body);
+// 开启Mock调试模式
+Mock.setup({
+    timeout: '200-600'
+});
+
+console.log('Mock.js已初始化，开始拦截请求');
+
+// 模拟登录接口 - 使用POST方法更符合登录场景
+Mock.mock(/\/user\/login/, 'post', (options: any) => {
+    console.log('Mock接收到登录请求:', options);
     // 模拟登录成功，返回token
     return {
         code: 200,
         message: '登录成功',
         data: {
             token: Mock.Random.guid(),
-            username: body.username || 'admin'
+            username: 'admin'
         }
     };
 });
 
 // 模拟获取用户信息接口
-Mock.mock('/api/userInfo', 'get', () => {
+Mock.mock('/user/userInfo', 'get', () => {
     return {
         code: 200,
         message: 'success',
@@ -27,7 +34,7 @@ Mock.mock('/api/userInfo', 'get', () => {
 });
 
 // 模拟获取用户信息接口
-Mock.mock('/api/router', 'get', () => {
+Mock.mock('/user/router', 'get', () => {
     return {
         code: 200,
         message: 'success',
@@ -49,7 +56,7 @@ Mock.mock('/api/router', 'get', () => {
 });
 
 // 模拟退出登录接口
-Mock.mock('/api/logout', 'post', () => {
+Mock.mock('/user/logout', 'post', () => {
     return {
         code: 200,
         message: '退出成功'

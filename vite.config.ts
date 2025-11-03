@@ -16,10 +16,10 @@ export default defineConfig({
     open: false,
     cors: true,
     proxy: {
-      '/api': {
-        target: '',
-        changeOrigin: true,
-      },
+      // '/api': {
+      //   target: '',
+      //   changeOrigin: true,
+      // },
     }
   }
 })
