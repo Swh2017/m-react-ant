@@ -3,7 +3,11 @@ import Cookies from 'js-cookie'
 
 const userToken = 'UserTokens'
 
-// 检查是否已登录
+/**
+ * 检查是否已登录
+ * @description 通过读取 Cookie 中的 UserTokens 判断用户是否已登录
+ * @returns {boolean} 已登录返回 true，否则返回 false
+ */
 export const isLoggedIn = (): boolean => {
   const token = Cookies.get(userToken, '')
   return !!token;

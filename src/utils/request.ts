@@ -1,4 +1,5 @@
 import axios, {AxiosRequestConfig} from 'axios';
+import {ResponseData} from "@/type/base.ts";
 
 // 创建axios实例
 const request = axios.create({
@@ -13,8 +14,12 @@ export const get = <T = any>(url: string, params?: any): Promise<T> => {
         request.get(url, {
             params
         }).then((response) => {
-            // 直接返回响应数据
-            resolve(response.data as T);
+            const responseData = response.data as ResponseData<T>;
+            if (responseData.code === 200) {
+                resolve(responseData.data);
+            } else {
+                reject(responseData.message);
+            }
         }).catch((error) => {
             console.error('GET请求错误:', error);
             reject(error);
@@ -27,9 +32,12 @@ export const post = <T = any>(url: string, data?: any, config?: AxiosRequestConf
     console.log('发送POST请求:', url, '数据:', data);
     return new Promise((resolve, reject) => {
         request.post(url, data, config).then((response) => {
-            console.log('POST响应:', response.data);
-            // 直接返回响应数据
-            resolve(response.data as T);
+            const responseData = response.data as ResponseData<T>;
+            if (responseData.code === 200) {
+                resolve(responseData.data);
+            } else {
+                reject(responseData.message);
+            }
         }).catch((error) => {
             console.error('POST请求错误:', error);
             reject(error);

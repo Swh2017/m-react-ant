@@ -1,9 +1,15 @@
 import {useState} from 'react';
 import "./index.css";
 import {login} from "@/api/base"
+import {setToken, isLoggedIn} from "@/utils/auth.ts";
+import {LoginResponse} from "@/type/base.ts";
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
+
+    if (isLoggedIn()) {
+        return
+    }
 
     const handleLogin = async () => {
         setLoading(true);
@@ -11,6 +17,7 @@ export default function Login() {
             userName: '',
             userCode: ''
         }).then(result => {
+            const userInfo = result
             console.log(result);
         }).catch(error => {
             console.log(error);
@@ -18,7 +25,6 @@ export default function Login() {
             setLoading(false);
         })
     };
-
     return (
         <div className="container">
             <button

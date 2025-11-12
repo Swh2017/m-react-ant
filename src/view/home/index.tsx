@@ -1,9 +1,13 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
-import {logout} from "@/utils/auth.ts";
+import {logout, isLoggedIn} from "@/utils/auth.ts";
 
 export default function Home() {
   const navigate = useNavigate();
 
+  if (!isLoggedIn()) {
+      // 重定向到登录
+      return navigate('/login', { replace: true });
+  }
   const handleLogout = () => {
     // 清除登录状态
     logout();

@@ -16,7 +16,7 @@ Mock.mock(/\/user\/login/, 'post', (options: any) => {
         message: '登录成功',
         data: {
             token: Mock.Random.guid(),
-            username: 'admin'
+            userName: 'admin'
         }
     };
 });
